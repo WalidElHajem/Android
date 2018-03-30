@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeAdapter(){
        adapter = new RVAdapter(movies);
+       
         rv.setAdapter(adapter);
     }
 
