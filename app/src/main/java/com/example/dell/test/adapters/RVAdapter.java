@@ -28,7 +28,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
         CardView cv;
         TextView movieName;
         TextView movieText;
-        ImageView moviePhoto;
+        public ImageView moviePhoto;
         TextView details;
         TextView share;
 
@@ -69,9 +69,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MovieViewHolder> {
     public void onBindViewHolder(final MovieViewHolder movieViewHolder,final int i) {
         movieViewHolder.movieName.setText(movies.get(i).name);
         movieViewHolder.movieText.setText(movies.get(i).text);
-        //Glide.with(movieViewHolder.moviePhoto.getContext()).load(movies.get(i).getPhotoId()).into(movieViewHolder.moviePhoto);
 
-        movieViewHolder.moviePhoto.setImageResource(movies.get(i).photoId);
+        Glide
+         .with(movieViewHolder.moviePhoto.getContext())
+         .load(movies.get(i).photoId)
+                .into(movieViewHolder.moviePhoto);
+
+        //movieViewHolder.moviePhoto.setImageResource(movies.get(i).photoId);
         movieViewHolder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

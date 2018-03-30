@@ -5,9 +5,9 @@ public class Movies {
 
    public String name;
    public String text;
-   public int photoId;
+   public String photoId;
 
-   public Movies(String name, String text, int photoId) {
+   public Movies(String name, String text, String photoId) {
         this.name = name;
         this.text = text;
         this.photoId = photoId;
@@ -21,7 +21,7 @@ public class Movies {
         return text;
     }
 
-    public int getPhotoId() {
+    public String getPhotoId() {
         return photoId;
     }
 
@@ -33,7 +33,7 @@ public class Movies {
         this.text = text;
     }
 
-    public void setPhotoId(int photoId) {
+    public void setPhotoId(String photoId) {
         this.photoId = photoId;
     }
 }

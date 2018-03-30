@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dell.test.models.Movies;
 import com.example.dell.test.R;
 import com.example.dell.test.adapters.RVAdapter;
@@ -53,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < m_jArry.length(); i++) {
 
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
-                Log.d("Name::", jo_inside.getString("name"));
+                Log.d("img::", jo_inside.getString("img"));
                 name= jo_inside.getString("name");
                 text = jo_inside.getString("text");
                  picture= jo_inside.getString("img");
 
-                movies.add(i,new Movies(name,text,R.mipmap.game));
+                movies.add(i,new Movies(name,text,picture));
 
 
 
@@ -104,18 +105,19 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (id == R.id.action_add) {
             int position ;
+            picture = "https://ds1.static.rtbf.be/article/image/370x208/2/c/9/fffc714065fb5bfdd158072d71dc7206-1498196050.jpg";
 
             if(movies.size()== 0)
             {
                 position = 0;
-                movies.add(position, new Movies("TEST", "TEST", R.mipmap.game));
+                movies.add(position, new Movies("TEST", "TEST", picture));
 
                 rv.setAdapter(adapter);
 
 
             }else {
                 position = 1;
-              movies.add(position, new Movies("TEST", "TEST", R.mipmap.bbad));
+              movies.add(position, new Movies("TEST", "TEST", picture));
 
                 rv.setAdapter(adapter);
 
