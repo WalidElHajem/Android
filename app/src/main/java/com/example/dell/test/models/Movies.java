@@ -1,11 +1,23 @@
 package com.example.dell.test.models;
 
+import java.util.List;
+
 public class Movies {
 
+    private List<Movies> movies;
 
-   public String name;
-   public String text;
-   public String photoId;
+    public void setMovies(List<Movies> movies) {
+        this.movies = movies;
+    }
+
+    private String name;
+   private String text;
+
+    public List<Movies> getMovies() {
+        return movies;
+    }
+
+    private String photoId;
 
    public Movies(String name, String text, String photoId) {
         this.name = name;
@@ -20,6 +32,7 @@ public class Movies {
     public String getText() {
         return text;
     }
+
 
     public String getPhotoId() {
         return photoId;

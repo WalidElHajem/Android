@@ -3,14 +3,15 @@ package com.example.dell.test.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.dell.test.models.Movies;
 import com.example.dell.test.R;
 import com.example.dell.test.adapters.RVAdapter;
@@ -22,7 +23,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,18 +38,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rv=(RecyclerView)findViewById(R.id.rv);
+        rv=findViewById(R.id.rv);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        LinearLayoutManager llm = new LinearLayoutManager(this)
+        {
+
+            @Override
+            public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
+                LinearSmoothScroller smoothScroller = new LinearSmoothScroller(getApplicationContext()) {
+
+                    private static final float SPEED = 300f;// Change this value (default=25f)
+
+                    @Override
+                    protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+                        return SPEED / displayMetrics.densityDpi;
+                    }
+
+                };
+                smoothScroller.setTargetPosition(position);
+                startSmoothScroll(smoothScroller);
+            }
+
+        };
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         try {
 
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("movies");
-            movies = new ArrayList<Movies>();
+            movies = new ArrayList<>();
 
             for (int i = 0; i < m_jArry.length(); i++) {
 
@@ -99,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show();
             }else {
                 movies.remove(position);
+                adapter.notifyItemRemoved(position);
 
-                rv.setAdapter(adapter);
+
             }
 
         }else if (id == R.id.action_add) {
@@ -111,15 +131,15 @@ public class MainActivity extends AppCompatActivity {
             {
                 position = 0;
                 movies.add(position, new Movies("TEST", "TEST", picture));
+                adapter.notifyItemInserted(position);
 
-                rv.setAdapter(adapter);
 
 
             }else {
                 position = 1;
               movies.add(position, new Movies("TEST", "TEST", picture));
+                adapter.notifyItemInserted(position);
 
-                rv.setAdapter(adapter);
 
             }
 
@@ -133,13 +153,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeAdapter(){
        adapter = new RVAdapter(movies);
-       
+
         rv.setAdapter(adapter);
     }
 
 
     public String loadJSONFromAsset() {
-        String json = null;
+        String json;
         try {
             InputStream is = this.getAssets().open("movies.json");
             int size = is.available();

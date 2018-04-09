@@ -1,3 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="quinze">15dp</dimen>
+    <dimen name="dix">10dp</dimen>
+    <dimen name="cinq">5dp</dimen>
+    <dimen name="vingt">20dp</dimen>
+
+    <dimen name="viewheight">1dp</dimen>
+
+    <dimen name="imageheight">170dp</dimen>
+
+
+
+
 </resources>

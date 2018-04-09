@@ -6,12 +6,12 @@
     <item
         android:id="@+id/action_add"
         android:icon="@mipmap/add"
-        android:title="cc"
+        android:title="@string/add"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_remove"
         android:icon="@mipmap/remove"
-        android:title="cc"
+        android:title="@string/remove"
         app:showAsAction="ifRoom"/>
 
 
