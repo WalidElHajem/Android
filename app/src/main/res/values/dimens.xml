@@ -8,8 +8,8 @@
     <dimen name="viewheight">1dp</dimen>
 
     <dimen name="imageheight">170dp</dimen>
-
-
+    <dimen name="elevation_cardview">4dp</dimen>
+    <dimen name="radius_cardview">2dp</dimen>
 
 
 </resources>

@@ -6,8 +6,7 @@
     <string name="remove">remove</string>
     <string name="add">add</string>
     <string name="desc">Photo</string>
-
-
+    <string name="extra_subject">Subject Here</string>
 
 
 </resources>
